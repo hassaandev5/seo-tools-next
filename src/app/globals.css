@@ -1,6 +1,322 @@
 @import "tailwindcss";
 
-:root {
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@layer components {
+  /* Base button styles */
+  .btn {
+    @apply font-medium rounded-lg transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none inline-flex items-center justify-center cursor-pointer;
+  }
+
+  /* Size variants */
+  .btn-sm {
+    @apply text-sm px-3 py-2;
+  }
+
+  .btn-md {
+    @apply text-base px-4 py-2.5;
+  }
+
+  .btn-lg {
+    @apply px-8 py-3;
+  }
+
+  /* Style variants */
+  .btn-primary {
+    @apply bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:ring-emerald-500;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 focus:ring-gray-500;
+  }
+
+  .btn-outline {
+    @apply bg-white dark:bg-gray-700 text-emerald-600 dark:text-emerald-400 border border-emerald-600 dark:border-emerald-500 hover:bg-gray-50 dark:hover:bg-gray-600 shadow-md hover:shadow-lg;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-gray-700 focus:ring-emerald-500;
+  }
+
+  /* State modifiers */
+  .btn-disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+
+  .btn-full {
+    @apply w-full;
+  }
+
+  /* Icon positioning classes */
+  .btn-icon-left > svg {
+    @apply mr-2;
+  }
+
+  .btn-icon-right > svg {
+    @apply ml-2;
+  }
+
+  /* Loading spinner styles */
+  .btn-loading {
+    @apply relative cursor-not-allowed;
+  }
+
+  .spinner-container {
+    @apply inline-flex items-center;
+  }
+
+  .spinner {
+    @apply animate-spin mr-2;
+  }
+
+  /* Input container */
+  .input-container {
+    @apply relative w-auto;
+  }
+
+  .input-container-full {
+    @apply w-full;
+  }
+
+  /* Label styles */
+  .input-label {
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 block;
+  }
+
+  .input-required {
+    @apply text-red-500 ml-1;
+  }
+
+  /* Base input styles */
+  .input {
+    @apply block w-full text-gray-900 dark:text-white
+          rounded-lg shadow-sm transition-all duration-200
+          focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 
+          dark:focus:ring-emerald-400/30 dark:focus:border-emerald-400
+          disabled:opacity-60 disabled:cursor-not-allowed
+          placeholder:text-gray-400 dark:placeholder:text-gray-500;
+  }
+
+  /* Input sizes */
+  .input-sm {
+    @apply py-1.5 text-sm;
+  }
+
+  .input-md {
+    @apply py-2.5;
+  }
+
+  .input-lg {
+    @apply py-3 text-lg;
+  }
+
+  /* Input variants */
+  .input-standard {
+    @apply bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600;
+  }
+
+  .input-standard:focus {
+    @apply border-emerald-500 dark:border-emerald-400;
+  }
+
+  .input-filled {
+    @apply bg-gray-100 dark:bg-gray-800 border border-transparent;
+  }
+
+  .input-filled:focus {
+    @apply border-emerald-500 dark:border-emerald-400;
+  }
+
+  .input-outlined {
+    @apply bg-transparent border-2 border-gray-300 dark:border-gray-600;
+  }
+
+  .input-outlined:focus {
+    @apply border-emerald-500 dark:border-emerald-400;
+  }
+
+  /* Error states */
+  .input-error {
+    @apply border-red-500;
+  }
+
+  .input-error:focus {
+    @apply border-red-500 ring-red-500/30;
+  }
+
+  /* Input with left icon padding */
+  .input-with-left-icon {
+    @apply pl-10;
+  }
+
+  /* Input with right icon padding */
+  .input-with-right-icon {
+    @apply pr-10;
+  }
+
+  /* Default padding when no icons */
+  .input-padding {
+    @apply px-4;
+  }
+
+  /* Icon containers */
+  .input-left-icon {
+    @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+  }
+
+  .input-right-icon {
+    @apply absolute inset-y-0 right-0 pr-3 flex items-center;
+  }
+
+  .input-right-icon-clickable {
+    @apply cursor-pointer hover:text-emerald-600 dark:hover:text-emerald-400;
+  }
+
+  /* Icon colors */
+  .input-icon {
+    @apply h-5 w-5 text-gray-400 dark:text-gray-500 transition-colors;
+  }
+
+  .input-icon-focused {
+    @apply text-emerald-500 dark:text-emerald-400;
+  }
+
+  .input-icon-error {
+    @apply text-red-500;
+  }
+
+  /* Helper text and error message */
+  .input-helper-text {
+    @apply mt-1.5 text-sm text-gray-500 dark:text-gray-400;
+  }
+
+  .input-error-text {
+    @apply mt-1.5 text-sm text-red-500;
+  }
+
+  /* Textarea container */
+  .textarea-container {
+    @apply space-y-1.5 w-auto;
+  }
+
+  .textarea-container-full {
+    @apply w-full;
+  }
+
+  /* Label container */
+  .textarea-label-container {
+    @apply flex justify-between items-center;
+  }
+
+  /* Label styles */
+  .textarea-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+
+  /* Character count */
+  .textarea-char-count {
+    @apply text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors duration-200;
+  }
+
+  .textarea-char-count-warning {
+    @apply text-amber-500 dark:text-amber-400;
+  }
+
+  .textarea-char-count-limit {
+    @apply text-red-500 dark:text-red-400;
+  }
+
+  /* Base textarea styles */
+  .textarea {
+    @apply block w-full
+      bg-white dark:bg-gray-800
+      text-gray-900 dark:text-white
+      rounded-lg 
+      border border-gray-300 dark:border-gray-600
+      shadow-sm
+      transition duration-200
+      py-3 px-4
+      resize-y
+      placeholder:text-gray-400 dark:placeholder:text-gray-500
+      focus:outline-none focus:ring-2 focus:ring-offset-1
+      focus:ring-emerald-500 focus:border-emerald-500 
+      dark:focus:ring-emerald-400 dark:focus:border-emerald-400;
+  }
+
+  /* Status styles */
+  .textarea-success {
+    @apply border-green-500 dark:border-green-500 
+      focus:ring-green-500 focus:border-green-500 
+      dark:focus:ring-green-400 dark:focus:border-green-400;
+  }
+
+  .textarea-warning {
+    @apply border-amber-500 dark:border-amber-500 
+      focus:ring-amber-500 focus:border-amber-500 
+      dark:focus:ring-amber-400 dark:focus:border-amber-400;
+  }
+
+  .textarea-error {
+    @apply border-red-500 dark:border-red-500 
+      focus:ring-red-500 focus:border-red-500 
+      dark:focus:ring-red-400 dark:focus:border-red-400;
+  }
+
+  /* Auto-grow styles */
+  .textarea-auto-grow {
+    @apply overflow-hidden resize-none;
+  }
+
+  /* Icon container */
+  .textarea-icon-container {
+    @apply absolute top-3 right-3 flex items-center justify-center 
+      h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+  }
+
+  .textarea-icon-clickable {
+    @apply cursor-pointer;
+  }
+
+  /* Icon colors */
+  .textarea-icon {
+    @apply h-5 w-5 text-gray-400 dark:text-gray-500 transition-colors;
+  }
+
+  .textarea-icon-success {
+    @apply text-green-500 dark:text-green-400;
+  }
+
+  .textarea-icon-warning {
+    @apply text-amber-500 dark:text-amber-400;
+  }
+
+  .textarea-icon-error {
+    @apply text-red-500;
+  }
+
+  .textarea-icon-focused {
+    @apply text-emerald-500 dark:text-emerald-400;
+  }
+
+  /* Helper text */
+  .textarea-helper-text {
+    @apply text-sm text-gray-500 dark:text-gray-400 transition-colors;
+  }
+
+  .textarea-helper-success {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  .textarea-helper-warning {
+    @apply text-amber-600 dark:text-amber-400;
+  }
+
+  .textarea-helper-error {
+    @apply text-red-500 dark:text-red-400;
+  }
+}
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -23,4 +339,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
