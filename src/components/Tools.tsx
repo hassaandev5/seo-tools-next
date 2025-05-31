@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import {
@@ -18,6 +18,7 @@ import {
   FaHashtag,
   FaMagnet,
   FaRegFileImage,
+  FaEdit,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -28,6 +29,7 @@ interface Tool {
   description: string;
   icon: React.ReactNode;
   category: string;
+  slug: string; // Add slug property
   isPopular?: boolean;
 }
 
@@ -45,35 +47,38 @@ const ToolsPage = () => {
     { id: "analytics", name: "Analytics" },
   ];
 
-  // Extended tools data
+  // Extended tools data with slugs
   const tools: Tool[] = [
     {
       id: 1,
-      title: "Article Rewriter",
+      title: "Words Count",
       description:
-        "Transform your content with AI-powered rewriting that maintains context and improves readability.",
-      icon: <FaFileAlt className="w-5 h-5" />,
+        "Count words, characters, sentences and estimate reading time for your content.",
+      icon: <FaCalculator className="w-5 h-5" />,
       category: "content",
+      slug: "word-count",
       isPopular: true,
     },
     {
       id: 2,
-      title: "Plagiarism Checker",
+      title: "Case Converter",
       description:
-        "Verify your content's originality against billions of web pages and ensure it's unique.",
-      icon: <FaSearch className="w-5 h-5" />,
+        "Change Text Case Just paste your text and change the case according to your needs",
+      icon: <FaRegFileImage className="w-5 h-5" />,
       category: "content",
-      isPopular: true,
+      slug: "case-converter",
     },
     {
       id: 3,
-      title: "Backlink Maker",
+      title: "Online Text Editor",
       description:
-        "Generate high-quality backlinks to improve your website's authority and search rankings.",
-      icon: <FaLink className="w-5 h-5" />,
-      category: "technical",
+        "Rich text editor with formatting options, spell check, and export capabilities for creating professional documents.",
+      icon: <FaEdit className="w-5 h-5" />,
+      category: "content",
+      slug: "online-text-editor",
       isPopular: true,
     },
+
     {
       id: 4,
       title: "Meta Tags Analyzer",
@@ -81,6 +86,7 @@ const ToolsPage = () => {
         "Analyze and optimize your meta tags for better search engine visibility and click-through rates.",
       icon: <FaTag className="w-5 h-5" />,
       category: "technical",
+      slug: "meta-tags-analyzer",
       isPopular: true,
     },
     {
@@ -90,15 +96,17 @@ const ToolsPage = () => {
         "Test your website's loading speed and get actionable tips to improve performance.",
       icon: <FaTachometerAlt className="w-5 h-5" />,
       category: "technical",
+      slug: "page-speed-checker",
       isPopular: true,
     },
     {
       id: 6,
-      title: "Words Count",
+      title: "Article Rewriter",
       description:
-        "Count words, characters, sentences and estimate reading time for your content.",
-      icon: <FaCalculator className="w-5 h-5" />,
+        "Transform your content with AI-powered rewriting that maintains context and improves readability.",
+      icon: <FaFileAlt className="w-5 h-5" />,
       category: "content",
+      slug: "article-rewriter",
       isPopular: true,
     },
     {
@@ -108,6 +116,7 @@ const ToolsPage = () => {
         "Discover high-performing keywords to target in your content strategy.",
       icon: <FaKeyboard className="w-5 h-5" />,
       category: "research",
+      slug: "keyword-research",
     },
     {
       id: 8,
@@ -116,6 +125,7 @@ const ToolsPage = () => {
         "Get a comprehensive analysis of your website's SEO health and performance.",
       icon: <FaGlobe className="w-5 h-5" />,
       category: "analytics",
+      slug: "website-analyzer",
     },
     {
       id: 9,
@@ -124,6 +134,7 @@ const ToolsPage = () => {
         "Monitor your website's search engine rankings for your target keywords over time.",
       icon: <FaChartBar className="w-5 h-5" />,
       category: "analytics",
+      slug: "seo-rank-tracker",
     },
     {
       id: 10,
@@ -132,6 +143,7 @@ const ToolsPage = () => {
         "Check if your website is optimized for mobile devices and get suggestions for improvement.",
       icon: <FaMobile className="w-5 h-5" />,
       category: "technical",
+      slug: "mobile-friendly-test",
     },
     {
       id: 11,
@@ -140,6 +152,7 @@ const ToolsPage = () => {
         "Create an XML sitemap to help search engines crawl and index your website more efficiently.",
       icon: <FaSitemap className="w-5 h-5" />,
       category: "technical",
+      slug: "xml-sitemap-generator",
     },
     {
       id: 12,
@@ -148,6 +161,7 @@ const ToolsPage = () => {
         "Generate SEO-optimized content with our advanced AI writing assistant.",
       icon: <FaRobot className="w-5 h-5" />,
       category: "content",
+      slug: "ai-content-generator",
     },
     {
       id: 13,
@@ -156,6 +170,7 @@ const ToolsPage = () => {
         "Create relevant hashtags for your social media posts to increase reach and engagement.",
       icon: <FaHashtag className="w-5 h-5" />,
       category: "content",
+      slug: "hashtag-generator",
     },
     {
       id: 14,
@@ -164,6 +179,7 @@ const ToolsPage = () => {
         "Check your website's domain authority score and compare with competitors.",
       icon: <FaMagnet className="w-5 h-5" />,
       category: "analytics",
+      slug: "domain-authority-checker",
     },
     {
       id: 15,
@@ -172,6 +188,27 @@ const ToolsPage = () => {
         "Generate SEO-friendly alt text descriptions for your images to improve accessibility and rankings.",
       icon: <FaRegFileImage className="w-5 h-5" />,
       category: "content",
+      slug: "image-alt-text-generator",
+    },
+    {
+      id: 16,
+      title: "Plagiarism Checker",
+      description:
+        "Verify your content's originality against billions of web pages and ensure it's unique.",
+      icon: <FaSearch className="w-5 h-5" />,
+      category: "content",
+      slug: "plagiarism-checker",
+      isPopular: true,
+    },
+    {
+      id: 17,
+      title: "Backlink Maker",
+      description:
+        "Generate high-quality backlinks to improve your website's authority and search rankings.",
+      icon: <FaLink className="w-5 h-5" />,
+      category: "technical",
+      slug: "backlink-maker",
+      isPopular: true,
     },
   ];
 
@@ -237,8 +274,8 @@ const ToolsPage = () => {
         </div>
       </div>
 
-      {/* Popular tools section (only shown when no filters are active) */}
-      {selectedCategory === "all" && searchTerm === "" && (
+      {/* Popular tools section */}
+      {/* {selectedCategory === "all" && searchTerm === "" && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
             Popular Tools
@@ -270,7 +307,7 @@ const ToolsPage = () => {
                     {tool.description}
                   </p>
                   <Link
-                    href={`/tools/${tool.id}`}
+                    href={`/${tool.slug}`}
                     className="btn btn-primary btn-sm btn-icon-right mt-auto"
                   >
                     Use Tool
@@ -280,7 +317,7 @@ const ToolsPage = () => {
               ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* All tools section */}
       <div>
@@ -312,7 +349,7 @@ const ToolsPage = () => {
                   {tool.description}
                 </p>
                 <Link
-                  href={`/tools/${tool.id}`}
+                  href={`/${tool.slug}`}
                   className="btn btn-primary btn-sm btn-icon-right mt-auto"
                 >
                   Use Tool
