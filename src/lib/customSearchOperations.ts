@@ -1,7 +1,8 @@
+// src\lib\customSearchOperations.ts
 import { pool } from "./db";
 import { RowDataPacket } from "mysql2";
 
-export type KeywordInfo = { count: number; [key: string]: unknown };
+export type KeywordInfo = { count: number; density: number; wordCount: number };
 export type KeywordsMap = Record<string, KeywordInfo>;
 
 export interface CustomSearchResult {
@@ -23,10 +24,22 @@ export async function getExistingCustomSearch(
     );
 
     if (rows.length > 0) {
+      // Parse the JSON string back to an object
+      let parsedKeywords: KeywordsMap;
+      try {
+        parsedKeywords =
+          typeof rows[0].keywords === "string"
+            ? JSON.parse(rows[0].keywords)
+            : rows[0].keywords;
+      } catch (parseError) {
+        console.error("Error parsing keywords JSON:", parseError);
+        parsedKeywords = {};
+      }
+
       return {
         id: rows[0].id,
         search_query: rows[0].search_query,
-        keywords: rows[0].keywords,
+        keywords: parsedKeywords,
         url: rows[0].url,
         created_at: rows[0].created_at,
       };
@@ -69,13 +82,27 @@ export async function getAllCustomSearchResults(): Promise<
       "SELECT id, search_query, keywords, url, created_at FROM custom_search ORDER BY created_at DESC"
     );
 
-    return rows.map((row) => ({
-      id: row.id,
-      search_query: row.search_query,
-      keywords: row.keywords,
-      url: row.url,
-      created_at: row.created_at,
-    }));
+    return rows.map((row) => {
+      // Parse the JSON string back to an object
+      let parsedKeywords: KeywordsMap;
+      try {
+        parsedKeywords =
+          typeof row.keywords === "string"
+            ? JSON.parse(row.keywords)
+            : row.keywords;
+      } catch (parseError) {
+        console.error("Error parsing keywords JSON:", parseError);
+        parsedKeywords = {};
+      }
+
+      return {
+        id: row.id,
+        search_query: row.search_query,
+        keywords: parsedKeywords,
+        url: row.url,
+        created_at: row.created_at,
+      };
+    });
   } catch (error) {
     console.error("Error fetching custom search results:", error);
     throw error;
