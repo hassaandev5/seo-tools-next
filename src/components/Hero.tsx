@@ -16,8 +16,9 @@ const Hero = () => {
           </h1>
 
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-lg">
-            Powerful SEO tools to analyze, optimize, and improve your website's
-            performance in search engines. Get actionable insights in minutes.
+            Powerful SEO tools to analyze, optimize, and improve your
+            website&apos;s performance in search engines. Get actionable
+            insights in minutes.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">

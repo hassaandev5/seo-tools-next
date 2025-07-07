@@ -5,7 +5,7 @@ import {
 } from "@/lib/customSearchOperations";
 import { extractKeywords } from "@/lib/keywordExtraction";
 
-type KeywordInfo = { count: number; [key: string]: any };
+import type { KeywordInfo } from "@/lib/customSearchOperations";
 
 // Google search API key and CX
 const GOOGLE_API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
@@ -32,9 +32,10 @@ export async function POST(request: NextRequest) {
 
       // Calculate basic stats from cached keywords
       const keywordCount = Object.keys(existingResult.keywords).length;
-      const totalOccurrences = Object.values<KeywordInfo>(
-        existingResult.keywords
-      ).reduce((sum: number, keyword: KeywordInfo) => sum + keyword.count, 0);
+      const totalOccurrences = Object.values(existingResult.keywords).reduce(
+        (sum: number, keyword: KeywordInfo) => sum + keyword.count,
+        0
+      );
 
       return NextResponse.json({
         success: true,
