@@ -13,11 +13,11 @@ import {
   FaCheck,
   FaSave,
   FaUndo,
-  FaRedo,
   FaFont,
   FaTextHeight,
   FaAlignLeft,
 } from "react-icons/fa";
+import type { Editor as TinyMCEEditor } from "tinymce";
 
 // Dynamically import TinyMCE Editor to avoid SSR issues
 const Editor = dynamic(
@@ -27,7 +27,9 @@ const Editor = dynamic(
     loading: () => (
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div className="h-[600px] flex items-center justify-center">
-          <div className="text-gray-500 dark:text-gray-400">Loading editor...</div>
+          <div className="text-gray-500 dark:text-gray-400">
+            Loading editor...
+          </div>
         </div>
       </div>
     ),
@@ -41,34 +43,38 @@ const OnlineTextEditor: React.FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
   const [saved, setSaved] = useState<boolean>(false);
   const [isClient, setIsClient] = useState(false);
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<TinyMCEEditor | null>(null);
 
-    // Get theme from next-themes
+  // Get theme from next-themes
   const { theme, resolvedTheme } = useTheme();
-  const [currentTheme, setCurrentTheme] = useState<string>('light');
+  const [currentTheme, setCurrentTheme] = useState<string>("light");
 
   // Handle client-side rendering
   useEffect(() => {
     setIsClient(true);
-    
+
     // Set initial theme
-    const isDark = document.documentElement.classList.contains('dark') || 
-                   resolvedTheme === 'dark' || 
-                   theme === 'dark';
-    setCurrentTheme(isDark ? 'dark' : 'light');
+    const isDark =
+      document.documentElement.classList.contains("dark") ||
+      resolvedTheme === "dark" ||
+      theme === "dark";
+    setCurrentTheme(isDark ? "dark" : "light");
   }, [theme, resolvedTheme]);
 
-    // Listen for theme changes
+  // Listen for theme changes
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const isDark = document.documentElement.classList.contains('dark');
-          const newTheme = isDark ? 'dark' : 'light';
-          
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          const isDark = document.documentElement.classList.contains("dark");
+          const newTheme = isDark ? "dark" : "light";
+
           if (newTheme !== currentTheme) {
             setCurrentTheme(newTheme);
-            
+
             // Update TinyMCE theme
             if (editorRef.current) {
               updateEditorTheme(editorRef.current, isDark);
@@ -80,14 +86,14 @@ const OnlineTextEditor: React.FC = () => {
 
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class']
+      attributeFilter: ["class"],
     });
 
     return () => observer.disconnect();
   }, [currentTheme]);
 
-    // Function to update editor theme
-  const updateEditorTheme = (editor: any, isDark: boolean) => {
+  // Function to update editor theme
+  const updateEditorTheme = (editor: TinyMCEEditor, isDark: boolean) => {
     if (!editor) return;
 
     // Update content styles
@@ -95,11 +101,11 @@ const OnlineTextEditor: React.FC = () => {
     if (contentDocument) {
       const body = contentDocument.body;
       if (isDark) {
-        body.style.backgroundColor = '#1f2937';
-        body.style.color = '#f9fafb';
+        body.style.backgroundColor = "#1f2937";
+        body.style.color = "#f9fafb";
       } else {
-        body.style.backgroundColor = '#ffffff';
-        body.style.color = '#000000';
+        body.style.backgroundColor = "#ffffff";
+        body.style.color = "#000000";
       }
     }
 
@@ -107,14 +113,12 @@ const OnlineTextEditor: React.FC = () => {
     const container = editor.getContainer();
     if (container) {
       if (isDark) {
-        container.classList.add('tox-dark-mode');
+        container.classList.add("tox-dark-mode");
       } else {
-        container.classList.remove('tox-dark-mode');
+        container.classList.remove("tox-dark-mode");
       }
     }
   };
-
-  
 
   // Calculate word and character count
   const updateCounts = (content: string) => {
@@ -343,12 +347,12 @@ const OnlineTextEditor: React.FC = () => {
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
               {isClient && (
                 <Editor
-                key={currentTheme}
-                  apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY} 
-                    onInit={(evt, editor) => {
+                  key={currentTheme}
+                  apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
+                  onInit={(evt, editor) => {
                     editorRef.current = editor;
                     // Apply initial theme
-                    updateEditorTheme(editor, currentTheme === 'dark');
+                    updateEditorTheme(editor, currentTheme === "dark");
                   }}
                   value={content}
                   onEditorChange={handleEditorChange}
@@ -382,12 +386,13 @@ const OnlineTextEditor: React.FC = () => {
                       "alignright alignjustify | bullist numlist outdent indent | " +
                       "removeformat | help | fullscreen | preview | code",
                     // Dynamic skin based on theme
-                    skin: currentTheme === 'dark' ? 'oxide-dark' : 'oxide',
-                    content_css: currentTheme === 'dark' ? 'dark' : 'default',
-                    
-                    content_style: currentTheme === 'dark' 
-                      ? "body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; background-color: #1f2937; color: #f9fafb; }"
-                      : "body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; background-color: #ffffff; color: #000000; }",
+                    skin: currentTheme === "dark" ? "oxide-dark" : "oxide",
+                    content_css: currentTheme === "dark" ? "dark" : "default",
+
+                    content_style:
+                      currentTheme === "dark"
+                        ? "body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; background-color: #1f2937; color: #f9fafb; }"
+                        : "body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; background-color: #ffffff; color: #000000; }",
                     branding: false, // Remove "Powered by TinyMCE"
                     elementpath: false,
                     resize: false,
@@ -396,10 +401,13 @@ const OnlineTextEditor: React.FC = () => {
                     automatic_uploads: false,
                     file_picker_types: "image",
                     promotion: false, // Hide upgrade prompts
-                    setup: (editor: any) => {
+                    setup: (editor: TinyMCEEditor) => {
                       editor.on("init", () => {
                         // Apply dark mode styles if needed
-                        if (typeof window !== "undefined" && document.documentElement.classList.contains("dark")) {
+                        if (
+                          typeof window !== "undefined" &&
+                          document.documentElement.classList.contains("dark")
+                        ) {
                           editor.dom.addStyle(`
                             body { background-color: #1f2937; color: #f9fafb; }
                           `);

@@ -232,7 +232,7 @@ const ToolsPage = () => {
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Discover our comprehensive collection of SEO tools designed to help
-          you improve your website's visibility, performance, and rankings.
+          you improve your website&apos;s visibility, performance, and rankings.
         </p>
       </div>
 
@@ -367,8 +367,8 @@ const ToolsPage = () => {
               No tools found
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Try adjusting your search or filter to find what you're looking
-              for.
+              Try adjusting your search or filter to find what you&apos;re
+              looking for.
             </p>
             <button
               onClick={() => {

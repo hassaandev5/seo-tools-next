@@ -36,7 +36,8 @@ const Features = () => {
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Our suite of powerful SEO tools helps you analyze, optimize, and
-            improve your website's performance to drive more organic traffic.
+            improve your website&apos;s performance to drive more organic
+            traffic.
           </p>
         </div>
 

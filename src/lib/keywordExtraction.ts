@@ -2,11 +2,35 @@ interface KeywordDensity {
   [keyword: string]: {
     count: number;
     density: number;
-    wordCount: number; // Add this to track word count
+    wordCount: number;
   };
 }
 
-export function extractKeywords(searchResponse: any): KeywordDensity {
+interface GoogleSearchItem {
+  title?: string;
+  snippet?: string;
+  displayLink?: string;
+}
+
+interface GoogleSearchQuery {
+  searchTerms?: string;
+  title?: string;
+}
+
+interface GoogleSearchResponse {
+  items?: GoogleSearchItem[];
+  queries?: {
+    request?: GoogleSearchQuery[];
+    nextPage?: GoogleSearchQuery[];
+    previousPage?: GoogleSearchQuery[];
+    [key: string]: GoogleSearchQuery[] | undefined;
+  };
+  [key: string]: unknown;
+}
+
+export function extractKeywords(
+  searchResponse: GoogleSearchResponse
+): KeywordDensity {
   const text = extractTextFromResponse(searchResponse);
   const words = processText(text);
 
@@ -29,10 +53,8 @@ export function extractKeywords(searchResponse: any): KeywordDensity {
       // Only include repeating keywords
       const wordCount = keyword.split(" ").length;
       keywordDensity[keyword] = {
-        count: count as number,
-        density: parseFloat(
-          (((count as number) / totalWords) * 100).toFixed(2)
-        ),
+        count: count,
+        density: parseFloat(((count / totalWords) * 100).toFixed(2)),
         wordCount: wordCount,
       };
     }
@@ -53,12 +75,12 @@ function getNGrams(words: string[], n: number): string[] {
   return nGrams;
 }
 
-function extractTextFromResponse(searchResponse: any): string {
+function extractTextFromResponse(searchResponse: GoogleSearchResponse): string {
   let combinedText = "";
 
   // Extract text from search results
   if (searchResponse.items && Array.isArray(searchResponse.items)) {
-    searchResponse.items.forEach((item: any) => {
+    searchResponse.items.forEach((item: GoogleSearchItem) => {
       if (item.title) combinedText += " " + item.title;
       if (item.snippet) combinedText += " " + item.snippet;
       if (item.displayLink) combinedText += " " + item.displayLink;
@@ -67,12 +89,14 @@ function extractTextFromResponse(searchResponse: any): string {
 
   // Extract text from queries
   if (searchResponse.queries) {
-    ["request", "nextPage", "previousPage"].forEach((queryType) => {
-      if (searchResponse.queries[queryType]) {
-        searchResponse.queries[queryType].forEach((query: any) => {
-          if (query.searchTerms) combinedText += " " + query.searchTerms;
-          if (query.title) combinedText += " " + query.title;
-        });
+    (["request", "nextPage", "previousPage"] as const).forEach((queryType) => {
+      if (searchResponse.queries?.[queryType]) {
+        searchResponse.queries[queryType]?.forEach(
+          (query: GoogleSearchQuery) => {
+            if (query.searchTerms) combinedText += " " + query.searchTerms;
+            if (query.title) combinedText += " " + query.title;
+          }
+        );
       }
     });
   }

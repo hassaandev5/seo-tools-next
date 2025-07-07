@@ -53,7 +53,8 @@ export async function storeSearchResult(
       ]
     );
 
-    return (result as any).insertId;
+    // Cast result to ResultSetHeader to access insertId
+    return (result as import("mysql2").ResultSetHeader).insertId;
   } catch (error) {
     console.error("Error storing search result:", error);
     throw error;

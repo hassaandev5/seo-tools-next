@@ -1,10 +1,13 @@
 import { pool } from "./db";
 import { RowDataPacket } from "mysql2";
 
+export type KeywordInfo = { count: number; [key: string]: unknown };
+export type KeywordsMap = Record<string, KeywordInfo>;
+
 export interface CustomSearchResult {
   id?: number;
   search_query: string;
-  keywords: any; // JSON object
+  keywords: KeywordsMap; // JSON object
   url?: string;
   created_at?: Date;
 }
@@ -41,7 +44,7 @@ export async function storeCustomSearchResult(
   searchData: CustomSearchResult
 ): Promise<number> {
   try {
-    const [result] = await pool.execute(
+    const [result] = await pool.execute<import("mysql2").ResultSetHeader>(
       "INSERT INTO custom_search (search_query, keywords, url) VALUES (?, ?, ?)",
       [
         searchData.search_query.toLowerCase().trim(),
@@ -50,7 +53,7 @@ export async function storeCustomSearchResult(
       ]
     );
 
-    return (result as any).insertId;
+    return result.insertId;
   } catch (error) {
     console.error("Error storing custom search result:", error);
     throw error;

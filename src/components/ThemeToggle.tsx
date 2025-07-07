@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 type ThemeToggleProps = {
   className?: string;
@@ -11,11 +11,11 @@ type ThemeToggleProps = {
 };
 
 const ThemeToggle = ({
-  className = '',
-  iconClassName = 'h-5 w-5',
-  buttonClassName = 'p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none'
+  className = "",
+  iconClassName = "h-5 w-5",
+  buttonClassName = "p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none",
 }: ThemeToggleProps) => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // After mounting, we can safely show the UI that depends on the theme
@@ -25,7 +25,7 @@ const ThemeToggle = ({
 
   // Toggle between light and dark mode
   const toggleDarkMode = () => {
-    const newTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
+    const newTheme = resolvedTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
   };
 
@@ -34,7 +34,7 @@ const ThemeToggle = ({
     return <div className={`${className} ${buttonClassName} opacity-0`}></div>;
   }
 
-  const isDarkMode = resolvedTheme === 'dark';
+  const isDarkMode = resolvedTheme === "dark";
 
   return (
     <div className={className}>
@@ -55,10 +55,10 @@ const ThemeToggle = ({
 
 export default ThemeToggle;
 
-
-
 // Example usage with custom classes
-{/* <ThemeToggle 
+{
+  /* <ThemeToggle 
   buttonClassName="rounded-full bg-gray-200 dark:bg-gray-700 p-3" 
   iconClassName="h-6 w-6 text-yellow-500 dark:text-blue-300"
-/> */}
+/> */
+}

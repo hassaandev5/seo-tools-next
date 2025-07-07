@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import mysql from "mysql2/promise";
 
-let connectionParams = {
+const connectionParams = {
   host: "localhost",
   port: 3306,
   user: "root",
@@ -11,7 +11,7 @@ let connectionParams = {
 
 // mysql://<username>:<password>@<host>:<port>/<database>
 
-let connection_uri = `mysql://${connectionParams.user}:${connectionParams.password}@${connectionParams.host}:${connectionParams.port}/${connectionParams.database}`;
+const connection_uri = `mysql://${connectionParams.user}:${connectionParams.password}@${connectionParams.host}:${connectionParams.port}/${connectionParams.database}`;
 
 export async function GET(request: NextRequest) {
   let name = "";
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const connection = await mysql.createConnection(connection_uri);
 
     let get_students_query = "";
-    let values: any[] = [];
+    let values: string[] = [];
 
     if (name) {
       get_students_query = "SELECT * FROM my_database.students WHERE name = ?";
@@ -64,9 +64,12 @@ export async function POST(request: NextRequest) {
     const [result] = await connection.execute(insertQuery, [name, email]);
     await connection.end();
 
+    // Cast result to ResultSetHeader to access insertId
+    const insertId = (result as mysql.ResultSetHeader).insertId;
+
     return NextResponse.json({
       message: "Student added",
-      id: (result as any).insertId,
+      id: insertId,
     });
   } catch (err) {
     return NextResponse.json(

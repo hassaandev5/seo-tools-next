@@ -242,7 +242,7 @@ const KeywordSearch = () => {
                     Search Term:
                   </span>
                   <span className="font-medium text-gray-900 dark:text-white">
-                    "{result.searchTerms}"
+                    &quot;{result.searchTerms}&quot;
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-2">

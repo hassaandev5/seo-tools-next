@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { FaHome, FaSearch, FaTools } from "react-icons/fa";
+import { FaHome, FaTools } from "react-icons/fa";
 
-export default function NotFound(){
+export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center py-16 md:py-24 text-center">
       {/* 404 Image/Illustration */}
@@ -62,6 +62,4 @@ export default function NotFound(){
       </div> */}
     </div>
   );
-};
-
-
+}
