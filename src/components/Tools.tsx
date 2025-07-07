@@ -79,38 +79,38 @@ const ToolsPage = () => {
       isPopular: true,
     },
 
+    // {
+    //   id: 4,
+    //   title: "Meta Tags Analyzer",
+    //   description:
+    //     "Analyze and optimize your meta tags for better search engine visibility and click-through rates.",
+    //   icon: <FaTag className="w-5 h-5" />,
+    //   category: "technical",
+    //   slug: "meta-tags-analyzer",
+    //   isPopular: true,
+    // },
+    // {
+    //   id: 5,
+    //   title: "Page Speed Checker",
+    //   description:
+    //     "Test your website's loading speed and get actionable tips to improve performance.",
+    //   icon: <FaTachometerAlt className="w-5 h-5" />,
+    //   category: "technical",
+    //   slug: "page-speed-checker",
+    //   isPopular: true,
+    // },
+    // {
+    //   id: 6,
+    //   title: "Article Rewriter",
+    //   description:
+    //     "Transform your content with AI-powered rewriting that maintains context and improves readability.",
+    //   icon: <FaFileAlt className="w-5 h-5" />,
+    //   category: "content",
+    //   slug: "article-rewriter",
+    //   isPopular: true,
+    // },
     {
       id: 4,
-      title: "Meta Tags Analyzer",
-      description:
-        "Analyze and optimize your meta tags for better search engine visibility and click-through rates.",
-      icon: <FaTag className="w-5 h-5" />,
-      category: "technical",
-      slug: "meta-tags-analyzer",
-      isPopular: true,
-    },
-    {
-      id: 5,
-      title: "Page Speed Checker",
-      description:
-        "Test your website's loading speed and get actionable tips to improve performance.",
-      icon: <FaTachometerAlt className="w-5 h-5" />,
-      category: "technical",
-      slug: "page-speed-checker",
-      isPopular: true,
-    },
-    {
-      id: 6,
-      title: "Article Rewriter",
-      description:
-        "Transform your content with AI-powered rewriting that maintains context and improves readability.",
-      icon: <FaFileAlt className="w-5 h-5" />,
-      category: "content",
-      slug: "article-rewriter",
-      isPopular: true,
-    },
-    {
-      id: 7,
       title: "Keyword Research",
       description:
         "Discover high-performing keywords to target in your content strategy.",
@@ -118,98 +118,98 @@ const ToolsPage = () => {
       category: "research",
       slug: "keyword-research",
     },
-    {
-      id: 8,
-      title: "Website Analyzer",
-      description:
-        "Get a comprehensive analysis of your website's SEO health and performance.",
-      icon: <FaGlobe className="w-5 h-5" />,
-      category: "analytics",
-      slug: "website-analyzer",
-    },
-    {
-      id: 9,
-      title: "SEO Rank Tracker",
-      description:
-        "Monitor your website's search engine rankings for your target keywords over time.",
-      icon: <FaChartBar className="w-5 h-5" />,
-      category: "analytics",
-      slug: "seo-rank-tracker",
-    },
-    {
-      id: 10,
-      title: "Mobile Friendliness Test",
-      description:
-        "Check if your website is optimized for mobile devices and get suggestions for improvement.",
-      icon: <FaMobile className="w-5 h-5" />,
-      category: "technical",
-      slug: "mobile-friendly-test",
-    },
-    {
-      id: 11,
-      title: "XML Sitemap Generator",
-      description:
-        "Create an XML sitemap to help search engines crawl and index your website more efficiently.",
-      icon: <FaSitemap className="w-5 h-5" />,
-      category: "technical",
-      slug: "xml-sitemap-generator",
-    },
-    {
-      id: 12,
-      title: "AI Content Generator",
-      description:
-        "Generate SEO-optimized content with our advanced AI writing assistant.",
-      icon: <FaRobot className="w-5 h-5" />,
-      category: "content",
-      slug: "ai-content-generator",
-    },
-    {
-      id: 13,
-      title: "Hashtag Generator",
-      description:
-        "Create relevant hashtags for your social media posts to increase reach and engagement.",
-      icon: <FaHashtag className="w-5 h-5" />,
-      category: "content",
-      slug: "hashtag-generator",
-    },
-    {
-      id: 14,
-      title: "Domain Authority Checker",
-      description:
-        "Check your website's domain authority score and compare with competitors.",
-      icon: <FaMagnet className="w-5 h-5" />,
-      category: "analytics",
-      slug: "domain-authority-checker",
-    },
-    {
-      id: 15,
-      title: "Image Alt Text Generator",
-      description:
-        "Generate SEO-friendly alt text descriptions for your images to improve accessibility and rankings.",
-      icon: <FaRegFileImage className="w-5 h-5" />,
-      category: "content",
-      slug: "image-alt-text-generator",
-    },
-    {
-      id: 16,
-      title: "Plagiarism Checker",
-      description:
-        "Verify your content's originality against billions of web pages and ensure it's unique.",
-      icon: <FaSearch className="w-5 h-5" />,
-      category: "content",
-      slug: "plagiarism-checker",
-      isPopular: true,
-    },
-    {
-      id: 17,
-      title: "Backlink Maker",
-      description:
-        "Generate high-quality backlinks to improve your website's authority and search rankings.",
-      icon: <FaLink className="w-5 h-5" />,
-      category: "technical",
-      slug: "backlink-maker",
-      isPopular: true,
-    },
+    // {
+    //   id: 8,
+    //   title: "Website Analyzer",
+    //   description:
+    //     "Get a comprehensive analysis of your website's SEO health and performance.",
+    //   icon: <FaGlobe className="w-5 h-5" />,
+    //   category: "analytics",
+    //   slug: "website-analyzer",
+    // },
+    // {
+    //   id: 9,
+    //   title: "SEO Rank Tracker",
+    //   description:
+    //     "Monitor your website's search engine rankings for your target keywords over time.",
+    //   icon: <FaChartBar className="w-5 h-5" />,
+    //   category: "analytics",
+    //   slug: "seo-rank-tracker",
+    // },
+    // {
+    //   id: 10,
+    //   title: "Mobile Friendliness Test",
+    //   description:
+    //     "Check if your website is optimized for mobile devices and get suggestions for improvement.",
+    //   icon: <FaMobile className="w-5 h-5" />,
+    //   category: "technical",
+    //   slug: "mobile-friendly-test",
+    // },
+    // {
+    //   id: 11,
+    //   title: "XML Sitemap Generator",
+    //   description:
+    //     "Create an XML sitemap to help search engines crawl and index your website more efficiently.",
+    //   icon: <FaSitemap className="w-5 h-5" />,
+    //   category: "technical",
+    //   slug: "xml-sitemap-generator",
+    // },
+    // {
+    //   id: 12,
+    //   title: "AI Content Generator",
+    //   description:
+    //     "Generate SEO-optimized content with our advanced AI writing assistant.",
+    //   icon: <FaRobot className="w-5 h-5" />,
+    //   category: "content",
+    //   slug: "ai-content-generator",
+    // },
+    // {
+    //   id: 13,
+    //   title: "Hashtag Generator",
+    //   description:
+    //     "Create relevant hashtags for your social media posts to increase reach and engagement.",
+    //   icon: <FaHashtag className="w-5 h-5" />,
+    //   category: "content",
+    //   slug: "hashtag-generator",
+    // },
+    // {
+    //   id: 14,
+    //   title: "Domain Authority Checker",
+    //   description:
+    //     "Check your website's domain authority score and compare with competitors.",
+    //   icon: <FaMagnet className="w-5 h-5" />,
+    //   category: "analytics",
+    //   slug: "domain-authority-checker",
+    // },
+    // {
+    //   id: 15,
+    //   title: "Image Alt Text Generator",
+    //   description:
+    //     "Generate SEO-friendly alt text descriptions for your images to improve accessibility and rankings.",
+    //   icon: <FaRegFileImage className="w-5 h-5" />,
+    //   category: "content",
+    //   slug: "image-alt-text-generator",
+    // },
+    // {
+    //   id: 16,
+    //   title: "Plagiarism Checker",
+    //   description:
+    //     "Verify your content's originality against billions of web pages and ensure it's unique.",
+    //   icon: <FaSearch className="w-5 h-5" />,
+    //   category: "content",
+    //   slug: "plagiarism-checker",
+    //   isPopular: true,
+    // },
+    // {
+    //   id: 17,
+    //   title: "Backlink Maker",
+    //   description:
+    //     "Generate high-quality backlinks to improve your website's authority and search rankings.",
+    //   icon: <FaLink className="w-5 h-5" />,
+    //   category: "technical",
+    //   slug: "backlink-maker",
+    //   isPopular: true,
+    // },
   ];
 
   // Filter tools based on selected category and search term
