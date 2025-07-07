@@ -2,21 +2,10 @@
 
 import { useState } from "react";
 import {
-  FaFileAlt,
   FaSearch,
-  FaLink,
-  FaTag,
-  FaTachometerAlt,
   FaCalculator,
   FaArrowRight,
-  FaGlobe,
-  FaChartBar,
-  FaMobile,
   FaKeyboard,
-  FaSitemap,
-  FaRobot,
-  FaHashtag,
-  FaMagnet,
   FaRegFileImage,
   FaEdit,
 } from "react-icons/fa";
