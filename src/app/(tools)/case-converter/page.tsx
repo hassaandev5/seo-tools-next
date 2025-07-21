@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CaseConvertor from "@/components/CaseConverter";
+import CaseConvertor from "@/components/tools/CaseConverter";
 
 export const metadata: Metadata = {
   title: "Case Convertor - Free Online Text Case Converter Tool",

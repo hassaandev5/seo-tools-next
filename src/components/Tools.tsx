@@ -8,6 +8,7 @@ import {
   FaKeyboard,
   FaRegFileImage,
   FaEdit,
+  FaFingerprint,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -106,6 +107,16 @@ const ToolsPage = () => {
       icon: <FaKeyboard className="w-5 h-5" />,
       category: "research",
       slug: "keyword-research",
+    },
+    {
+      id: 5,
+      title: "MD5 Generator",
+      description:
+        "Generate the MD5 hash of any string instantly for security or verification purposes.",
+      icon: <FaFingerprint className="w-5 h-5" />,
+      category: "technical",
+      slug: "md5-generator",
+      isPopular: true,
     },
     // {
     //   id: 8,
