@@ -190,16 +190,16 @@ const ToolsPage = () => {
     //   category: "content",
     //   slug: "image-alt-text-generator",
     // },
-    // {
-    //   id: 16,
-    //   title: "Plagiarism Checker",
-    //   description:
-    //     "Verify your content's originality against billions of web pages and ensure it's unique.",
-    //   icon: <FaSearch className="w-5 h-5" />,
-    //   category: "content",
-    //   slug: "plagiarism-checker",
-    //   isPopular: true,
-    // },
+    {
+      id: 16,
+      title: "Plagiarism Checker",
+      description:
+        "Verify your content's originality against billions of web pages and ensure it's unique.",
+      icon: <FaSearch className="w-5 h-5" />,
+      category: "content",
+      slug: "plagiarism-checker",
+      isPopular: true,
+    },
     // {
     //   id: 17,
     //   title: "Backlink Maker",
