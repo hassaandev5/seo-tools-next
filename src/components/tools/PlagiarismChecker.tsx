@@ -1,13 +1,24 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const PlagiarismChecker = () => {
   const [article, setArticle] = useState("");
   const [snippets, setSnippets] = useState<string[]>([]);
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  type SearchResult = {
+    snippetIndex: number;
+    originalSnippet: string;
+    searchResults: {
+      title: string;
+      link: string;
+      snippet: string;
+      displayLink: string;
+    }[];
+    totalResults: number;
+  };
+
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_API_KEY;
