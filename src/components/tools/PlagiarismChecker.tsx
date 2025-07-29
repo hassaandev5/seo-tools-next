@@ -6,15 +6,16 @@ import { FaSearch } from "react-icons/fa";
 const PlagiarismChecker = () => {
   const [article, setArticle] = useState("");
   const [, setSnippets] = useState<string[]>([]);
+  type SearchResultItems = {
+    title: string;
+    link: string;
+    snippet: string;
+    displayLink: string;
+  };
   type SearchResult = {
     snippetIndex: number;
     originalSnippet: string;
-    searchResults: {
-      title: string;
-      link: string;
-      snippet: string;
-      displayLink: string;
-    }[];
+    searchResults: SearchResultItems[];
     totalResults: number;
   };
 
@@ -99,7 +100,7 @@ const PlagiarismChecker = () => {
         const processedResult = {
           snippetIndex: i,
           originalSnippet: snippet,
-          searchResults: result.items.map((item: any) => ({
+          searchResults: result.items.map((item: SearchResultItems) => ({
             title: item.title,
             link: item.link,
             snippet: item.snippet,
@@ -211,12 +212,12 @@ const PlagiarismChecker = () => {
                     total results)
                   </h3>
                   <p className="text-sm text-gray-600 mb-3 italic">
-                    "{result.originalSnippet.substring(0, 100)}..."
+                    &quot;{result.originalSnippet.substring(0, 100)}...&quot;
                   </p>
                   <div className="space-y-2">
                     {result.searchResults
                       .slice(0, 3)
-                      .map((item: any, itemIndex: number) => (
+                      .map((item, itemIndex: number) => (
                         <div
                           key={itemIndex}
                           className="border-l-4 border-blue-500 pl-3"
