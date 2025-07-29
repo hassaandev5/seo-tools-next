@@ -19,9 +19,25 @@ const PlagiarismChecker = () => {
     totalResults: number;
   };
 
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [plagiarismResults, setPlagiarismResults] = useState<any[]>([]);
+  type PlagiarismSource = {
+    url: string;
+    title: string;
+    similarity: number;
+    content: string;
+  };
+
+  type PlagiarismResult = {
+    snippetIndex: number;
+    originalSnippet: string;
+    maxSimilarity: number;
+    sources: PlagiarismSource[];
+  };
+
+  const [, setSearchResults] = useState<SearchResult[]>([]);
+  const [, setIsSearching] = useState(false);
+  const [plagiarismResults, setPlagiarismResults] = useState<
+    PlagiarismResult[]
+  >([]);
   const [overallPlagiarismScore, setOverallPlagiarismScore] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
@@ -87,7 +103,7 @@ const PlagiarismChecker = () => {
     return Math.min(similarity, 100); // Cap at 100%
   };
 
-  const analyzePlagiarism = async (searchResults: any[]) => {
+  const analyzePlagiarism = async (searchResults: SearchResult[]) => {
     setIsAnalyzing(true);
     const plagiarismData = [];
     let totalSimilarityScore = 0;
@@ -445,37 +461,39 @@ const PlagiarismChecker = () => {
                   {result.maxSimilarity}%
                 </h3>
                 <p className="text-sm text-gray-600 mb-3 italic">
-                  "{result.originalSnippet.substring(0, 100)}..."
+                  &quot;{result.originalSnippet.substring(0, 100)}...&quot;
                 </p>
 
-                {result.sources.map((source: any, sourceIndex: number) => (
-                  <div
-                    key={sourceIndex}
-                    className="ml-4 mb-2 p-2 bg-gray-50 rounded"
-                  >
-                    <div className="flex justify-between items-center">
-                      <a
-                        href={source.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline text-sm font-medium"
-                      >
-                        {source.title}
-                      </a>
-                      <span
-                        className={`px-2 py-1 rounded text-xs ${
-                          source.similarity > 50
-                            ? "bg-red-100 text-red-800"
-                            : source.similarity > 25
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-green-100 text-green-800"
-                        }`}
-                      >
-                        {source.similarity}%
-                      </span>
+                {result.sources.map(
+                  (source: PlagiarismSource, sourceIndex: number) => (
+                    <div
+                      key={sourceIndex}
+                      className="ml-4 mb-2 p-2 bg-gray-50 rounded"
+                    >
+                      <div className="flex justify-between items-center">
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline text-sm font-medium"
+                        >
+                          {source.title}
+                        </a>
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            source.similarity > 50
+                              ? "bg-red-100 text-red-800"
+                              : source.similarity > 25
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-green-100 text-green-800"
+                          }`}
+                        >
+                          {source.similarity}%
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             ))}
           </div>
