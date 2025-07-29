@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 
 const PlagiarismChecker = () => {
   const [article, setArticle] = useState("");
-  const [snippets, setSnippets] = useState<string[]>([]);
+  const [, setSnippets] = useState<string[]>([]);
   type SearchResult = {
     snippetIndex: number;
     originalSnippet: string;
