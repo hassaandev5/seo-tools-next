@@ -7,6 +7,8 @@ import { FaSearch } from "react-icons/fa";
 const PlagiarismChecker = () => {
   const [article, setArticle] = useState("");
   const [snippets, setSnippets] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_API_KEY;
   const GOOGLE_CX = process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CX;
@@ -47,21 +49,81 @@ const PlagiarismChecker = () => {
   const searchSnippets = async (snippet: string) => {
     if (!GOOGLE_API_KEY || !GOOGLE_CX) {
       console.error("Google Search API credentials not configured");
-      return;
+      return null;
     }
-    const response = await fetch(
-      `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${encodeURIComponent(
-        snippet
-      )}`
-    );
-    const data = await response.json();
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&q=${encodeURIComponent(
+          snippet
+        )}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.error("Error searching snippets:", error);
+      return null;
+    }
   };
-  const handleCheckPlagiarism = () => {
+
+  const processAllSnippets = async (snippetList: string[]) => {
+    setIsSearching(true);
+    const allResults = [];
+
+    // Process snippets with delay to respect rate limits
+    for (let i = 0; i < snippetList.length; i++) {
+      const snippet = snippetList[i];
+      console.log(
+        `Searching snippet ${i + 1}/${snippetList.length}:`,
+        snippet.substring(0, 50) + "..."
+      );
+
+      const result = await searchSnippets(snippet);
+
+      if (result && result.items) {
+        // Extract useful information from each result
+        const processedResult = {
+          snippetIndex: i,
+          originalSnippet: snippet,
+          searchResults: result.items.map((item: any) => ({
+            title: item.title,
+            link: item.link,
+            snippet: item.snippet,
+            displayLink: item.displayLink,
+          })),
+          totalResults: result.searchInformation?.totalResults || 0,
+        };
+
+        allResults.push(processedResult);
+        console.log(
+          `Found ${result.items.length} results for snippet ${i + 1}`
+        );
+      }
+
+      // Add delay between requests to avoid rate limiting
+      if (i < snippetList.length - 1) {
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // 1 second delay
+      }
+    }
+
+    setSearchResults(allResults);
+    setIsSearching(false);
+    console.log("All search results:", allResults);
+    return allResults;
+  };
+  const handleCheckPlagiarism = async () => {
     if (article.trim() === "") {
       alert("Please enter an article to check for plagiarism.");
       return;
     }
     const snippetList = makeSnippets(article);
+    if (!snippetList) return; // Early return if article is too long
+
+    // Process all snippets
+    await processAllSnippets(snippetList);
 
     // console.log(snippetList);
     // snippetList.forEach((snippet) => {
@@ -113,6 +175,62 @@ const PlagiarismChecker = () => {
             Check Plagiarism
             <FaSearch />
           </button>
+          {/* Results Section */}
+          {isSearching && (
+            <div className="text-center py-4">
+              <p className="text-gray-600">
+                Searching for potential matches...
+              </p>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mt-2"></div>
+            </div>
+          )}
+
+          {searchResults.length > 0 && (
+            <div className="mt-8 space-y-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Search Results
+              </h2>
+              {searchResults.map((result, index) => (
+                <div
+                  key={index}
+                  className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800"
+                >
+                  <h3 className="font-semibold text-lg mb-2">
+                    Snippet {result.snippetIndex + 1} ({result.totalResults}{" "}
+                    total results)
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-3 italic">
+                    "{result.originalSnippet.substring(0, 100)}..."
+                  </p>
+                  <div className="space-y-2">
+                    {result.searchResults
+                      .slice(0, 3)
+                      .map((item: any, itemIndex: number) => (
+                        <div
+                          key={itemIndex}
+                          className="border-l-4 border-blue-500 pl-3"
+                        >
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline font-medium"
+                          >
+                            {item.title}
+                          </a>
+                          <p className="text-sm text-gray-600">
+                            {item.displayLink}
+                          </p>
+                          <p className="text-sm text-gray-700 mt-1">
+                            {item.snippet}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
