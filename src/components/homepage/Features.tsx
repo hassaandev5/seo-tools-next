@@ -1,6 +1,7 @@
 import { FaSearch, FaChartLine, FaTools } from "react-icons/fa";
 import { BiHealth } from "react-icons/bi";
 import { MdOutlineScreenSearchDesktop } from "react-icons/md";
+import Link from "next/link";
 // import Button from "./ui/Button";
 
 const Features = () => {
@@ -120,10 +121,12 @@ const Features = () => {
               {/* <Button size="lg" icon={FaTools} className="mr-2">
                 Use Tools
               </Button> */}
-              <button className="btn btn-primary btn-lg btn-icon-right">
-                Use Tools
-                <FaTools />
-              </button>
+              <Link href="/tools">
+                <button className="btn btn-primary btn-lg btn-icon-right">
+                  Use Tools
+                  <FaTools />
+                </button>
+              </Link>
             </div>
           </div>
         </div>

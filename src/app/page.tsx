@@ -1,6 +1,6 @@
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import ToolsSection from "@/components/ToolsSection";
+import Hero from "@/components/homepage/Hero";
+import Features from "@/components/homepage/Features";
+import ToolsSection from "@/components/homepage/ToolsSection";
 
 export default function Home() {
   return (

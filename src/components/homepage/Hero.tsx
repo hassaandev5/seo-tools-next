@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaSearch, FaChartLine } from "react-icons/fa";
 // import Button from "./ui/Button";
 
@@ -38,11 +39,12 @@ const Hero = () => {
               Explore Tools
               <FaSearch className="ml-2" />
             </button> */}
-
-            <button className="btn btn-outline btn-lg btn-icon-right">
-              Explore Tools
-              <FaSearch />
-            </button>
+            <Link href="/tools">
+              <button className="btn btn-outline btn-lg btn-icon-right">
+                Explore Tools
+                <FaSearch />
+              </button>
+            </Link>
           </div>
 
           {/* Stats section */}
