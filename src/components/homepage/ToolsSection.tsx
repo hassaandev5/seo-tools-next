@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { JSX } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { tools } from "@/data/tools";
+import { tools } from "@/data/toolsData";
 // import Button from "./ui/Button";
 
 const ToolsSection = () => {

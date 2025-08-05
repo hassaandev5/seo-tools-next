@@ -1,4 +1,4 @@
-import PlagiarismChecker from "@/components/tools/PlagiarismChecker";
+import PlagiarismChecker from "@/app/(tools)/plagiarism-checker/PlagiarismChecker";
 
 const page = () => {
   return <PlagiarismChecker />;

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import OnlineTextEditor from "@/components/tools/OnlineTextEditor";
+import OnlineTextEditor from "@/app/(tools)/online-text-editor/OnlineTextEditor";
 
 export const metadata: Metadata = {
   title: "Online Text Editor - Free Rich Text Editor with Formatting",

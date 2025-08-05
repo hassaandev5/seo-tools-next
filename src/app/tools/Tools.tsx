@@ -1,17 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-  FaSearch,
-  FaCalculator,
-  FaArrowRight,
-  FaKeyboard,
-  FaRegFileImage,
-  FaEdit,
-  FaFingerprint,
-} from "react-icons/fa";
+import { FaSearch, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import { tools } from "@/data/tools";
+import { tools } from "@/data/toolsData";
 
 // Tool type definition
 interface Tool {

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import WordCount from "@/components/tools/WordCount";
+import WordCount from "@/app/(tools)/word-count/WordCount";
 
 export const metadata: Metadata = {
   title: "Word Counter - Free Online Word and Character Count Tool",

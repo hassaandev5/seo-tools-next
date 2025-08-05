@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import KeywordSearch from "@/components/tools/KeywordSearch";
+import KeywordSearch from "@/app/(tools)/keyword-research/KeywordSearch";
 
 export const metadata: Metadata = {
   title: "Keyword Search - Free Online Keyword Search Tool",

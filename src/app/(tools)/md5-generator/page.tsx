@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import MD5Generator from "@/components/tools/MD5Generator";
+import MD5Generator from "@/app/(tools)/md5-generator/MD5Generator";
 
 export const metadata: Metadata = {
   title: "MD5 Generator - Free Online MD5 Hash Generator Tool",
